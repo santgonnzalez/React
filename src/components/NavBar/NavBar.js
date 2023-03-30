@@ -1,17 +1,17 @@
 import CartWidget from "../CartWidget/CartWidget";
 
+import {Link} from 'react-router-dom';
+
 const NavBar = () =>{
-    return(
-        <nav style={{display:'flex', justifyContent:'space-arround',alignItems:'center'}}>
-            <section>
-                <button className="btn btn-secondary">Inicio</button>
-                <button className="btn btn-secondary">Productos</button>
-                <button className="btn btn-secondary">Ofertas</button>
-                <button className="btn btn-secondary">Blog</button>
-                <button className="btn btn-secondary">Acerca de nosotros</button>
-                <button className="btn btn-secondary">Contacto</button>
-            </section>
-            <CartWidget />
+    return (
+        <nav>
+            <h1>Ecommerce</h1>
+            <div>
+                <Link to='/category/phone'>Celulares</Link>
+                <Link to='/category/smartwatch'>Smart Watch</Link>
+                <Link to='/category/laptop'>Notebooks</Link>
+            </div>
+            <CartWidget/>
         </nav>
     )
 }
