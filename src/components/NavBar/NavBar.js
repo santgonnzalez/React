@@ -15,7 +15,7 @@ const NavBar = () => {
                     <Nav className="me-auto">
                     <Navbar><Link className="link" to="/">Home</Link></Navbar>
                     <Navbar><Link className="link" to="/category/phone">Celulares</Link></Navbar>
-                    <Navbar><Link className="link" to="/category/smartwatch">Smart Watch</Link></Navbar>
+                    <Navbar><Link className="link" to="/category/smartWatch">Smart Watch</Link></Navbar>
                     <Navbar><Link className="link" to="/category/laptop">Notebooks</Link></Navbar>
                     <Navbar.Brand><Link to="./cart"><CartWidget/></Link></Navbar.Brand>
                     </Nav>

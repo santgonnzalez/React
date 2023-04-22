@@ -1,7 +1,7 @@
 import { useCartContext } from '../../context/CartContext'
 import { Button, Container } from 'react-bootstrap';
 import { Link } from "react-router-dom";
-// import { FaTrash } from 'react-icons/fa';
+import { FaTrash } from 'react-icons/fa';
 import '../ItemDetail/ItemDetail.css';
 
 function CartItems({ modalShow }) {
@@ -41,7 +41,7 @@ function CartItems({ modalShow }) {
 										<td>{prod.title}</td>
 										<td>{`$ ${(prod.price)}`}</td>
 										<td>{`$ ${(prod.cantidad * prod.price)}`}</td>
-										<td><Button className="addCart" onClick={() => removeItem(prod.id)}></Button></td>
+										<td><Button className="addCart" onClick={() => removeItem(prod.id)}><FaTrash /></Button></td>
 									</tr>
 								))}
 							</tbody>

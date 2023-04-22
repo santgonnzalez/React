@@ -1,3 +1,9 @@
+
+img.imgCard {
+    width: 331px;
+    height:331px;
+}
+
 .cardTitle {
     margin: 0 auto;
     font-family: 'Antic Didone', serif;

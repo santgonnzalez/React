@@ -6,6 +6,8 @@ import Cart from './components/Cart/Cart';
 import CartContextProvider from './context/CartContext';
 
 
+
+
 const App =() => {
   return (
     <div className="App">
@@ -16,7 +18,7 @@ const App =() => {
             <Route exact path='/'>
               <ItemListContainer/>
             </Route>
-            <Route exact path='/category/:categoryId' component={ItemListContainer}/>
+            <Route exact path='/categoria/:id' component={ItemListContainer}/>
             <Route exact path='/producto/:productoId' component={ItemDetailContainer}/>
             <Route exact path='/cart' component={Cart}/>
           </Switch>
@@ -27,7 +29,3 @@ const App =() => {
 }
 
 export default App;
-
-
-
-// 'Bienvenidos a mi Ecommerce: ProdigyTech'

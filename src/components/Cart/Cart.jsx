@@ -30,7 +30,7 @@ const Cart = () => {
         orden.total = total();
         orden.items = cartList.map(cartItem => {
             const id = cartItem.id;
-            const nombre = cartItem.name;
+            const nombre = cartItem.title;
             const precio = cartItem.price * cartItem.cantidad;
             
             return {id, nombre, precio}   

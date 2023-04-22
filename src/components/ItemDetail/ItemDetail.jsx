@@ -9,16 +9,16 @@ import  { Button } from 'react-bootstrap';
 const ItemDetail = ({detail}) => {
     const [count, setCount] = useState(0)
     const {agregarAlCarrito} = useCartContext()
-    const onAdd =(quantity)=>{
-        setCount(quantity)
-        agregarAlCarrito({...detail, cantidad: quantity})
+    const onAdd =(cant)=>{
+        setCount(cant)
+        agregarAlCarrito({...detail, cantidad: cant})
     }
     console.log(count)
 
     return (
         <div className="cardDetail card w-50 mt-5 mb-5">
             <div className="card-header">
-            <span className="cardTitle">{detail.name}</span>   
+                <span className="cardTitle">{detail.name}</span>   
             </div>
             <div className="card-body">
                 <img className="imgDetail mx-auto d-block" src={detail.img} alt="" />
