@@ -1,0 +1,12 @@
+.cardTitle {
+    margin: 0 auto;
+    font-family: 'Antic Didone', serif;
+    font-weight: bold;
+    font-size: 1rem;
+}
+.price {
+    font-family: 'Antic Didone', serif;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-bottom:10px;
+}
