@@ -1,44 +1,67 @@
-import {useState, useEffect} from 'react'
-import {getProductById, getProducts, getProductsByCategory} from '../../asyncMock'
+import { useEffect, useState } from "react";
+import ItemList from "../ItemList/ItemList";
+import { useParams } from "react-router-dom";
+import { getFirestore } from "../../services/getFirestore";
 
-import {Link, useParams} from 'react-router-dom'
+const ItemListContainer = () => {
+    const[product, setProduct] = useState([]);
+    const { id } = useParams();
 
+    useEffect(() => {
+        
+    //     if(id) {
+    //         getFetch
+    //         .then( res => {
+    //             setProduct(res.filter(prod => prod.tipo === id ))
+    //         })
+    //         .catch(err => console.log(err))
 
-const ItemListContainer = ({greeting}) =>{
-    const[products, setProducts] = useState([])
+    //     }else {
+    //         getFetch
+    //         .then( res => {
+    //             setProduct(res)
+    //         })
+    //         .catch(err => console.log(err))
 
-    const {categoryId} = useParams()
+    //     }
+        
+        // }, [id])
 
-    useEffect(()=>{
+        const dataBase = getFirestore() 
+        
+        if (id) {
 
-        const asynFunction = categoryId ? getProductsByCategory : getProducts
+            const dbQuery = dataBase.collection("items").where("tipo", "==", id).get() 
 
-        asynFunction(categoryId)
-                .then(response =>{
-                    setProducts(response);
-                })
-                .catch(error =>{
-                    console.log(error);
-                })
-    }, [])
+            dbQuery
+            .then(resp => setProduct(resp.docs.map(prod => ({id:prod.id, ...prod.data()}))))
+            .catch (error => alert("Error:", error))
+        }
 
+        else {
 
+            const dbQuery = dataBase.collection("items").orderBy("tipo").get() 
+
+            dbQuery
+            .then(resp => setProduct(resp.docs.map(prod => ({id:prod.id, ...prod.data() }) )))
+            .catch (error => alert("Error:", error))
+        } 
+
+    },[id])      
 
     return(
-        <div>
-            <h1>{greeting}</h1>
-            {
-                products.map(prod =>{
-                    return(
-                        <div key={prod.id}>
-                            <h3>{prod.name}</h3>
-                            <Link to={`/item/${prod.id}`}>ver detalle</Link>
-                        </div>
-                    )
-                })
-            }
+        <div className="container">
+            <ItemList product={product} />
         </div>
-    ) 
+    )
+
+    // const addItem = (qty,stock) => {
+    //     const message = `Agregaste ${ qty } producto`;
+    //     if(stock !==0) {
+    //         (qty === 1) ? alert(message) : alert(message + `s`)
+    //     }
+    
+    // }
 }
 
 export default ItemListContainer;

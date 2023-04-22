@@ -1,16 +1,18 @@
-// import Item from "../item/Item"
+import Item from "../Item/Item"
+import './ItemList.css';
 
-// const ItemList = ({products}) =>{
-//     return(
-// //ejectuo el metodo map para que me genere un nuevo array donde los tranformo a cada uno de los objetos en un componente
+const ItemList = ( {product} ) => {
+    // se mapea info
+    // El map genera los item (enviándole las props)
+    return (
+        <div className="itemList">
+            { product.map(prod=> <Item key={prod.id} prod={prod}/>) }
+        </div>
+    
+    
 
-//         <div>
-//                 {
-//                     products.map(product=>{
-//                         return <Item {...product}/>
-//                     })
-//                 }
-//         </div>
-//     )
-// }
-// export default ItemList
+    
+    )
+}
+
+export default ItemList;

@@ -1,30 +1,29 @@
-import { useEffect, useState } from 'react';
-import {getProductById} from '../../asyncMock';
-import { useParams } from 'react-router-dom';
-import ItemDetail from '../ItemDetail/ItemDetail';
-
-const ItemDetailContainer = () =>{
-    const [product,setProduct] = useState({});
-
-    const {itemId} = useParams();
-
-    useEffect(()=>{
-        getProductById(itemId)
-                .then(response =>{
-                    setProduct(response)
-                })
-                .catch(error =>{
-                    console.log(error)
-                })
-    }, [itemId])
+// import getFetch from "../../services/getFetch"
+import ItemDetail from "../ItemDetail/ItemDetail";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import {getFirestore} from '../../services/getFirestore';
 
 
+const ItemDetailContainer = () => {
+    const[detail, setDetails] = useState([]);
+    const { productoId } = useParams();
+
+    useEffect(() => {
+        const dataBase = getFirestore()
+
+        const dbQuery = dataBase.collection("items").doc(productoId).get()
+
+        dbQuery
+        .then(prod => setDetails({id:prod.id, ...prod.data()}))
+        .catch (error => alert("Error:", error))
+
+    },[productoId])
     return(
         <div>
-            <h1>Detalle de producto</h1>
-            <ItemDetail {...product}/>
+            <ItemDetail detail={detail}/>
         </div>
     )
 }
 
-export default ItemDetailContainer;
+export default ItemDetailContainer
