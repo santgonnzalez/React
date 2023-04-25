@@ -22,7 +22,6 @@ const Item = ({id, name, img, price }) => {
             </section>           
             <footer className='ItemFooter'>
             <Link to={`/item/${id}`} className='Option'>Ver detalle</Link>
-               {/* <button onClick={() => navigate('/item')} className='Option'>Ver detalle</button> */}
             </footer>
         </article>
     )

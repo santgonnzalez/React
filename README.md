@@ -1,4 +1,4 @@
-# Documentacion sobre el Ecommerce.
+# Documentacion sobre el Ecommerce "ProdigyTech".
 
 ## Este proyecto fue creado para la entrega final del curso de React en CoderHouse.
 ## Santiago Gonzalez. 22023
@@ -6,7 +6,7 @@
 Runs the app in the development mode.
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 ### Para clonar el repo en gihub:
-    git clone
+    git clone https://github.com/santgonnzalez/React.git
     cd ProdegyTech
     npm install
     npm start
