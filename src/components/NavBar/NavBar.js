@@ -1,28 +1,53 @@
-import { Fragment } from "react";
-import { Navbar, Container, Nav } from 'react-bootstrap';
-import CartWidget from "../Cart/CartWidget";
-import {Link} from 'react-router-dom';
-import './NavBar.css';
-
+import CartWidget from '../CartWidget/CartWidget'
+import './NavBar.css'
+import { Link, NavLink } from 'react-router-dom'
+import { useAuth } from '../../context/AuthContext'
+import { useEffect, useState } from 'react'
+import { collection, getDocs, query } from 'firebase/firestore'
+import { db } from '../../services/firebase/firebaseConfig'
 
 const NavBar = () => {
-    return(
-        <>
-            <Navbar className="nav">
-                <Container>
-                    <Navbar.Brand className="mainTitle" to="#home"><img className='navLogo' src="" alt="logo"/>
-                    </Navbar.Brand>
-                    <Nav className="me-auto">
-                    <Navbar><Link className="link" to="/">Home</Link></Navbar>
-                    <Navbar><Link className="link" to="/category/phone">Celulares</Link></Navbar>
-                    <Navbar><Link className="link" to="/category/smartWatch">Smart Watch</Link></Navbar>
-                    <Navbar><Link className="link" to="/category/laptop">Notebooks</Link></Navbar>
-                    <Navbar.Brand><Link to="./cart"><CartWidget/></Link></Navbar.Brand>
-                    </Nav>
-                </Container>
-            </Navbar>
-        </>
-    )
-}
+  const [categories, setCategories] = useState([])
+  const { user } = useAuth()
 
-export default NavBar;
+  useEffect(() => {
+    const categoriesRef = query(collection(db, 'categories'))
+
+    getDocs(categoriesRef)
+      .then(snapshot => {
+          const categoriesAdapted = snapshot.docs.map(doc => {
+            const data = doc.data()
+
+            return { id: doc.id, ...data }
+          })
+
+          setCategories(categoriesAdapted)
+      }).catch(error => {
+        console.log(error)
+      })
+
+  }, [])
+
+  return (
+    <nav className="NavBar" >
+        <Link to='/'>Ecommerce</Link>
+        <div className="Categories">
+            {
+              categories.map(cat => {
+                return (
+                  <NavLink key={cat.id} to={`/category/${cat.slug}`} className={({ isActive }) => isActive ? 'ActiveOption' : 'Option'}>{cat.label}</NavLink>
+                )
+              }) 
+            }
+        </div>
+        {
+          user ? (
+            <CartWidget />
+          ) : (
+            <NavLink to='/login' className={({ isActive }) => isActive ? 'ActiveOption' : 'Option'}>Login</NavLink>
+          )
+        }
+    </nav>
+  )
+}
+export default NavBar

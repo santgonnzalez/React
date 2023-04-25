@@ -1,31 +1,35 @@
-import NavBar from './components/NavBar/NavBar';
+import './App.css';
 import ItemListContainer from './components/ItemListContainer/ItemListContainer';
-import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
-import Cart from './components/Cart/Cart';
-import CartContextProvider from './context/CartContext';
+import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer'
+import NavBar from './components/NavBar/NavBar'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
+import { CartProvider } from './context/CartContext';
+import { Notification, NotificationProvider } from './notification/NotificationService';
+import Login from './components/Login/Login';
+import { AuthProvider } from './context/AuthContext';
 
-
-
-const App =() => {
+const App = () => {
   return (
-    <div className="App">
-      <CartContextProvider>  
+    <div className='App'>
+      <NotificationProvider>
         <BrowserRouter>
-          <NavBar/>
-          <Switch>
-            <Route exact path='/'>
-              <ItemListContainer/>
-            </Route>
-            <Route exact path='/categoria/:id' component={ItemListContainer}/>
-            <Route exact path='/producto/:productoId' component={ItemDetailContainer}/>
-            <Route exact path='/cart' component={Cart}/>
-          </Switch>
-        </BrowserRouter> 
-        </CartContextProvider>   
+            <AuthProvider>
+              <CartProvider>
+                <NavBar /> 
+                <Routes>
+                  <Route path='/' element={<ItemListContainer greeting={'Todos nuestros productos'} />} />
+                  <Route path='/category/:categoryId' element={<ItemListContainer greeting={'Productos filtrados por categoria'} />} />
+                  <Route path='/category/:categoryId/subcategory/:subcategoryId' element={<ItemListContainer greeting={'Productos filtrados por categoria'} />} />
+                  <Route path='/item/:itemId' element={<ItemDetailContainer />} />
+                  <Route path='/login' element={<Login />} />
+                </Routes>
+              </CartProvider>
+            </AuthProvider>
+        </BrowserRouter>
+      </NotificationProvider>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

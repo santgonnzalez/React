@@ -1,6 +1,4 @@
-.itemList {
-    display: grid;
-    grid-template-columns: repeat(3, 3fr);
-    grid-template-rows: min-content;
-    gap:10px;
+.ListGroup {
+    display: flex;
+    justify-content: center;
 }
